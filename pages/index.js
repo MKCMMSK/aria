@@ -1,4 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+// import styles from '../styles/Home.module.css'
+import BackgroundVideoPlayer from '../components/backgroundVideo';
 
 export default function Home() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
@@ -36,8 +38,15 @@ export default function Home() {
     },
   ];
 
+  const changeVideoIndex = (videoIndex) => {
+    setCurrentVideoIndex(videoIndex);
+  };
+
   return (
-    <div className={styles.container}>
-    </div>
+      <BackgroundVideoPlayer
+        videoSrc={videoSrc}
+        changeVideoIndex={changeVideoIndex}
+        currentVideoIndex={currentVideoIndex}
+      />
   )
 }

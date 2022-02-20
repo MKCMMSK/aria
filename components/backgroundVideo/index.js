@@ -37,6 +37,94 @@ const BackgroundVideoPlayer = (props) => {
     max = Math.floor(max);
     setLoopCount(Math.floor(Math.random() * (max - min + 1) + min));  
   };
+  
+  // advances to the next scene when each video ends
+  const handleVideoEnd = (event) => {
+    event.preventDefault();
+    event.srcElement.removeEventListener('ended', handleVideoEnd);  // cleanup event handler
+
+    switch (currentScene.name) {
+      case "enter": {
+        // set number of loops for main loop
+        setLoop('main');
+  
+        setCurrentScene({ 
+          name: 'mainLoop',
+          player: `mainLoop_${props.currentVideoIndex}`,
+          posterSrc: null,
+          prevPlayer: currentScene.player
+        });
+        break;        
+      }
+
+      case "mainLoop": {
+        // in video sets where mainLoopToSubLoop scene does not exist, continue the mainLoop by resetting the loopCount  
+        let transitionPlayer = videoPlayerRef.current['mainLoopToSubLoop_0'] ? videoPlayerRef.current['mainLoopToSubLoop_0'].firstChild : null; 
+        if  (!transitionPlayer) {
+          setLoop('main');
+        }
+
+        // advance to mainLoopToSubLoop
+        setCurrentScene({ 
+          name: 'mainLoopToSubLoop',
+          player: `mainLoopToSubLoop_${props.currentVideoIndex}`,  
+          posterSrc: null,
+          prevPlayer: currentScene.player
+        }); 
+        break;    
+      }
+
+      case "mainLoopToSubLoop": {
+        // set number of loops for sub loop
+        setLoop('sub');
+        
+        setCurrentScene({ 
+          name: 'subLoop',
+          player: `subLoop_${props.currentVideoIndex}`,  
+          posterSrc: null,
+          prevPlayer: currentScene.player
+        });
+        break;
+      }
+
+      case "subLoop": {
+        // loop as many times as specified in loopCount
+        setCurrentScene({ 
+          name: 'subLoopToMainLoop',
+          player: `subLoopToMainLoop_${props.currentVideoIndex}`,
+          posterSrc: null,
+          prevPlayer: currentScene.player
+        });
+        break;
+      }
+
+      case "subLoopToMainLoop": {
+        // set number of loops for main loop
+        setLoop('exitNext'); 
+
+        setCurrentScene({ 
+          name: 'exitNext',
+          player: `exitNext_${props.currentVideoIndex}`,  
+          posterSrc: null,
+          prevPlayer: currentScene.player
+        });
+        break;        
+      }
+      case "exitNext": {
+        // set number of loops for main loop
+        setLoop('enter'); 
+
+        setCurrentScene({ 
+          name: 'enter',
+          player: `enter_0`,  
+          posterSrc: null,
+          prevPlayer: currentScene.player
+        });
+        break;        
+      }
+    }
+  }
+
     return (
         <BackgroundSceneList
             ref={videoPlayerRef}
