@@ -1,8 +1,41 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../styles/Home.module.css'
+import React, { useState } from 'react';
 
 export default function Home() {
+  const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
+
+  const videoSrc = [
+    {
+      scenes: {
+        enter: 'https://streamable.com/l/idiuej/',
+        mainLoop: 'https://streamable.com/l/uqz91y/',
+        mainLoopToSubLoop: 'https://streamable.com/l/akzkwp/',
+        subLoop: 'https://streamable.com/l/1uvga7/',
+        subLoopToMainLoop: 'https://streamable.com/l/q17ur9/',
+        exitNext: 'https://streamable.com/l/3zec69/',
+      },
+      mainLoopMaxLoops: 6,
+      mainLoopMinLoops: 3,
+      subLoopMaxLoops: 6,
+      subLoopMinLoops: 3,
+      nftUrl: null,
+    },
+    {
+      scenes: {
+        enter: 'https://streamable.com/l/yl025m/',
+        mainLoop: 'https://streamable.com/l/xsh8z4/',
+        mainLoopToSubLoop: 'https://streamable.com/l/u81hvk/',
+        subLoop: 'https://streamable.com/l/8zsfpm/',
+        subLoopToMainLoop: 'https://streamable.com/l/61fetd/',
+        exitPrev: 'https://streamable.com/l/p9nfo9/',
+      },
+      mainLoopMaxLoops: 6,
+      mainLoopMinLoops: 3,
+      subLoopMaxLoops: 6,
+      subLoopMinLoops: 3,
+      nftUrl: null,
+    },
+  ];
+
   return (
     <div className={styles.container}>
     </div>
