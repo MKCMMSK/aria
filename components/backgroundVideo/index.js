@@ -17,6 +17,67 @@ const BackgroundVideoPlayer = (props) => {
   //storing refs of each video player container using player as a key for the pair eg. 'enter_0' : <div>
   const videoPlayerRef = useRef({});
 
+  // play scene
+  useEffect(() => {
+    // DOM handle for the player and wrapper
+    const videoPlayerDict = videoPlayerRef.current; 
+    let playerWrapper = videoPlayerDict[currentScene.player] ? videoPlayerDict[currentScene.player] : null;
+
+    // display the next current video
+    const playNextScene = () => {
+      // play the video for the current scene
+      let player = playerWrapper.firstChild;      
+      playerWrapper.style.display = 'inline';
+      player.pause();
+      player.addEventListener('canplay', function onCanPlay() {
+        player.removeEventListener('canplay', onCanPlay);
+        player.play();
+      });
+      player.load();
+
+      // hide the previous player once the next video is playing
+      if (currentScene.prevPlayer !== undefined) {
+        player.addEventListener('playing', function onPlaying() {
+          player.removeEventListener('playing', onPlaying);
+          const prevPlayer = videoPlayerDict[currentScene.prevPlayer];
+          if (prevPlayer) {
+            prevPlayer.style.display = 'none';
+          }
+        });
+      }
+
+      // call handleVideoEnd when each video ends
+      player.addEventListener('ended', handleVideoEnd, false);
+    }
+
+    if (playerWrapper != null && currentScene.player !== currentScene.prevPlayer) {
+      playNextScene();
+    } else if (playerWrapper == null && currentScene.player !== currentScene.prevPlayer) {
+      setTimeout(() => { 
+        playerWrapper = videoPlayerDict[currentScene.player];
+        if (playerWrapper != null && currentScene.player !== currentScene.prevPlayer) {
+          playNextScene();
+        }
+      }, 0);
+    }
+  }, [currentScene.player, currentScene.prevPlayer]);
+
+  // play looping scene
+  useEffect(() => {
+    // replay the current scene
+    const playLoopScene = () => {
+      const player = videoPlayerRef.current[currentScene.player].firstChild;
+      player.play();
+
+      // call handleVideoEnd when each video ends
+      player.addEventListener('ended', handleVideoEnd, false); 
+    }
+
+    if (loopCount > 0 && (currentScene.name === 'mainLoop' || currentScene.name === 'subLoop')) {
+      playLoopScene();
+    }
+  }, [loopCount]);
+
   // set the number of times to loop main loop or sub loop
   const setLoop = (loopType) => {
     let max;
