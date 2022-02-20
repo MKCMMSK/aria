@@ -26,4 +26,11 @@ const BackgroundVideoPlayer = (props) => {
     )
 };
 
+BackgroundVideoPlayer.propTypes = {
+  changeVideoIndex: PropTypes.func.isRequired,
+  className: PropTypes.any,
+  currentVideoIndex: PropTypes.number.isRequired,
+  videoSrc: PropTypes.oneOfType([PropTypes.object, PropTypes.array]).isRequired,
+};
+
 export default BackgroundVideoPlayer;
