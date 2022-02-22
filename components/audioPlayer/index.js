@@ -10,6 +10,7 @@ const AudioPlayer = (props) => {
   const [volume, setVolume] = useState(0.6);
   const audioPlayerRef = useRef({});
 
+  //Grab a track and set the current track state, app name can be arbitrary
   let fetchData = () => {
     const track = `https://audius-discovery-1.altego.net/v1/tracks/${props.trackToPlay}?app_name=${appName} `;
 
@@ -23,9 +24,11 @@ const AudioPlayer = (props) => {
 
   const streamTrack = `https://audius-discovery-1.altego.net/v1/tracks/${props.trackToPlay}/stream?app_name=${appName}`;
 
+  //currently only plays one track, should run everytime a new track to play is set, need to set it on app level
   useEffect(() => {
     fetchData();
-  }, [])
+  }, [props.trackToPlay])
+
   return (
     <>
       <ReactAudioPlayer
