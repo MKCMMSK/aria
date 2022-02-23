@@ -19,7 +19,7 @@ const AudioPlayerControls = (props) => {
   );
 };
 
-AudioPlayerControls.PropTypes = {
+AudioPlayerControls.propTypes = {
     onPause: PropTypes.func.isRequired,
     onPlay: PropTypes.func.isRequired,
     isPlaying: PropTypes.bool.isRequired,
