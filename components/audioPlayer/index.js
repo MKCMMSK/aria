@@ -51,6 +51,7 @@ const AudioPlayer = (props) => {
           isPlaying={isPlaying}
           currentTrack={currentTrack}
         />
+        <AudioInfo trackArtist={currentTrack.artist} trackTitle={currentTrack.title}/>
         <div 
           className="playerIcon" 
         >
