@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 // import styles from '../styles/Home.module.css'
 import BackgroundVideoPlayer from '../components/backgroundVideo';
+import AudioPlayer from '../components/audioPlayer';
 
 export default function Home() {
   const [currentVideoIndex, setCurrentVideoIndex] = useState(0);
-
+  const [trackToPlay, setTrackToPlay] = useState('ByZxx');
   const videoSrc = [
     {
       scenes: {
@@ -43,10 +44,13 @@ export default function Home() {
   };
 
   return (
+    <>
+      <AudioPlayer trackToPlay={trackToPlay}/>
       <BackgroundVideoPlayer
         videoSrc={videoSrc}
         changeVideoIndex={changeVideoIndex}
         currentVideoIndex={currentVideoIndex}
       />
+    </>
   )
 }
