@@ -9,7 +9,20 @@ Testing is required. Seemingly functional but would like to have tests to valida
 
 ## Getting Started
 
-First, run the development server:
+Clone this repo to your local machine:
+
+```bash
+git clone git@github.com:MKCMMSK/aria.git
+```
+
+Change directories and install dependencies:
+
+```bash
+cd aria
+npm install
+```
+
+Then, run the development server:
 
 ```bash
 npm run dev
