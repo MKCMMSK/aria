@@ -1,7 +1,11 @@
 ## Description
 
-Quick prototype built to use Audius api to stream music, currently supports 1 specific track.
-When it comes to the video, it repeats the video played until a certain amount of loops have been looped, then hides the first player and unhides the next player to show a seamless transition as if it's a full video.
+Quick prototype built to use Audius api to stream music, currently supports 1 hard coded track id.
+When it comes to the video, it repeats the video played until a certain amount of loops have been looped, then hides the first player and unhides the next player to show a seamless transition as if it's a full video. Rinse and repeats.
+
+## To Do
+
+Testing is required. Seemingly functional but would like to have tests to validate and prevent regression bugs.
 
 ## Getting Started
 
